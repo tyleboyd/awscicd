@@ -4,6 +4,8 @@ pipeline {
 environment {
     BRANCH_NAME = 'main'
     GIT_URL = 'https://github.com/tyleboyd/awscicd.git'
+    IMAGE_TAG = 'tyleboyd/awscicd'
+    IMAGE_VERSION = ${BUILD_NUMBER}
 }
   stages {
    stage('git checkout'){
@@ -13,7 +15,7 @@ environment {
    }
    stage('docker build'){
     steps{
-        sh 'docker build -t awscicd .'
+        sh 'docker build -t "${IMAGE_TAG}:${IMAGE_VERSION}" .'
         sh 'docker images'
     }
    }
